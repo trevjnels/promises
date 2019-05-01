@@ -40,21 +40,44 @@ var generateRandomToken = function(callback) {
 
 var generateRandomTokenAsync = Promise.promisify(generateRandomToken); // TODO
 
-
-// (3) Asyncronous file manipulation
 Promise.promisifyAll(fs);
+// (3) Asyncronous file manipulation
+// var readFileAndMakeItFunny = function(filePath, callback) {
+//   var funnyFile;
+//   return funnyFile = fs.readFileAsync(filePath, 'utf8')
+//     .then(filePath => filePath.split('\n'))
+//     .then(splitFile => splitFile.map((line)=>{
+//       return line + ' lol';
+//     }))
+//     .then(splitMapped => splitMapped.join('\n'))
+//     .then(funnyFile => funnyFile)
+//     // .catch(err =>{ throw err; })
+//     // .done(
+//     //   [funnyFile => funnyFile ],
+//     //   [err =>  err ]
+//     // );
+// };
+
+// .done(
+//   [function(any value) fulfilledHandler],
+//   [function(any error) rejectedHandler]
+// ) -> undefined
+
+
+
 var readFileAndMakeItFunny = function(filePath, callback) {
-  var funnyFile;
-  fs.readFileAsync(filePath, 'utf8')
-    .then(file => file.split('\n'))
-    .then(splitFile => splitFile.map((line)=>{
-      return line + ' lol';
-    }))
-    .then(splitMapped => splitMapped.join('\n'))
-    .then(joined => funnyFile = joined)
-    .done();
+  fs.readFile(filePath, 'utf8', function(err, file) {
+    if (err) { return callback(err); }
+   
+    var funnyFile = file.split('\n')
+      .map(function(line) {
+        return line + ' lol';
+      })
+      .join('\n');
+
+    callback(funnyFile);
+  });
 };
- NEXT STEPS  = find the OG code for the above function and try out without doing this promALL nonsense. 
 
 var readFileAndMakeItFunnyAsync = Promise.promisify(readFileAndMakeItFunny);
 
