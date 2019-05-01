@@ -38,31 +38,9 @@ var generateRandomToken = function(callback) {
   });
 };
 
+
+
 var generateRandomTokenAsync = Promise.promisify(generateRandomToken); // TODO
-
-Promise.promisifyAll(fs);
-// (3) Asyncronous file manipulation
-// var readFileAndMakeItFunny = function(filePath, callback) {
-//   var funnyFile;
-//   return funnyFile = fs.readFileAsync(filePath, 'utf8')
-//     .then(filePath => filePath.split('\n'))
-//     .then(splitFile => splitFile.map((line)=>{
-//       return line + ' lol';
-//     }))
-//     .then(splitMapped => splitMapped.join('\n'))
-//     .then(funnyFile => funnyFile)
-//     // .catch(err =>{ throw err; })
-//     // .done(
-//     //   [funnyFile => funnyFile ],
-//     //   [err =>  err ]
-//     // );
-// };
-
-// .done(
-//   [function(any value) fulfilledHandler],
-//   [function(any error) rejectedHandler]
-// ) -> undefined
-
 
 
 var readFileAndMakeItFunny = function(filePath, callback) {
@@ -74,12 +52,25 @@ var readFileAndMakeItFunny = function(filePath, callback) {
         return line + ' lol';
       })
       .join('\n');
-
-    callback(funnyFile);
+    callback(null, funnyFile);
   });
 };
 
+
+
 var readFileAndMakeItFunnyAsync = Promise.promisify(readFileAndMakeItFunny);
+
+// function(filePath) {
+//   return new Promise(function(resolve, reject) {  
+//     readFileAndMakeItFunny(filePath, function(errorOrFile) {    
+//       if (errorOrFile instanceof Error) {       
+//         reject(errorOrFile);   
+//       } else {
+//         resolve(errorOrFile); 
+//       }
+//     });
+//   });
+// }; 
 
 // Export these functions so we can test them and reuse them in later exercises
 module.exports = {

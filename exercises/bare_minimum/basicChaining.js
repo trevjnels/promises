@@ -14,7 +14,8 @@ var Promise = require('bluebird');
 
 
 var fetchProfileAndWriteToFile = function(readFilePath, writeFilePath) {
-  // TODO
+  console.log("- - - - - - - - - - - - - - - - - ", readFilePath)
+
 };
 
 // Export these functions so we can test them
