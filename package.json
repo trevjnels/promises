@@ -20,7 +20,7 @@
     "colors": "^1.1.2",
     "eslint-config-hackreactor": "git://github.com/hackreactor-labs/eslint-config-hackreactor",
     "mocha": "^2.2.5",
-    "nock": "^2.15.0",
+    "nock": "^14.0.12",
     "request": "^2.61.0"
   }
 }
